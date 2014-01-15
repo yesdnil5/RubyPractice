@@ -1,3 +1,21 @@
+def create_hash(boxes)
+	hash = {}
+	puts boxes
+	boxes.length.times do |k|
+		i = k + 1
+		arr = []
+		while i < boxes.length
+			if boxes[k].width >= boxes[i].width && 
+				boxes[k].length >= boxes[i].length
+				arr.push(boxes[i])
+			end
+			i+=1
+		end
+		hash[boxes[k]] = arr
+	end
+	return hash
+end
+
 Box = Struct.new(:length, :width, :height)
 puts "please enter input"
 number_boxes = gets.to_i
@@ -11,7 +29,8 @@ number_boxes.times do |k|
 	box.height = dem[2].to_i
 	boxes[k] = box
 end
-puts boxes
 
 boxes.sort! { |a,b| b.length*b.width <=> a.length*a.width }
-puts boxes
+
+hash = create_hash(boxes)
+puts hash
